@@ -15,5 +15,5 @@ scatter_code <- chatgpt_query(scatter_prompt)
 cat("ChatGPT Suggested Code for Scatter Plot:\n")
 cat(scatter_code, "\n")
 
-
+eval(parse(text = extract_r_code(scatter_code)))
 

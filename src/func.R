@@ -39,3 +39,13 @@ chatgpt_query <- function(prompt, model = "gpt-3.5-turbo") {
     return(NULL)
   })
 }
+
+extract_r_code <- function(text) {
+  if (grepl("```", text)) {
+    code_block <- sub(".*```[Rr]?\\s*\\n", "", text)
+    code_block <- sub("\\n```.*", "", code_block)
+    return(code_block)
+  } else {
+    return(text)
+  }
+}
