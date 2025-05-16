@@ -1,0 +1,68 @@
+---
+title: "Integration of AI and R Programming"
+author: "Dadong Zhang"
+format:
+  pdf:
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \fvset{breaklines=true,breakanywhere=true}
+editor: visual
+---
+
+## Demonstration of inplementing OpenAI in R programming for generating neat document in PDF, Presentation, and Word.
+
+
+```{r global-setup, echo=TRUE}
+rm(list = ls())
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(writexl)
+library(httr)
+library(jsonlite)
+library(flextable)
+library(table1)
+set.seed(123)
+options(width = 70)
+source("src/func.R")
+```
+
+## Ask AI to generate a dummey patient characteristic, demogrphaic, baseline, treatment, and binary clinical response data set
+
+```{r echo=TRUE}
+question <- "Can you give R code to generate a dummy data frame for 100 patients with their characteristics such as gender, age, bmi, height, race, baseline, treatment, and binary clinical response data set?"
+result1 <- chatgpt_query_with_history(question)
+cat("Assistant's answer:\n", result1$answer, "\n")
+
+# Optionally, extract R code:
+eval(parse(text = extract_r_code(result1)))
+```
+## Continue asking AI to make a characteristics table for the patients betweo treatment
+
+```{r echo=TRUE}
+question2 <- "Can you give me the R code to generate the patient characteristics
+table using R package table1 between treatment? I already installed the package."
+result2 <- chatgpt_query_with_history(question2, history = result1$history)
+cat("Assistant's answer:\n", result2$answer, "\n")
+eval(parse(text = extract_r_code(result2)))
+```
+## Continue asking AI to make a bar plot for the response rate between the treatment groups
+
+```{r echo=TRUE}
+question3 <- "Can you give me the R code to make a barplot for the response 
+rates between treatment groups?"
+result3 <- chatgpt_query_with_history(question3, history = result1$history)
+cat("Assistant's answer:\n", result3$answer, "\n")
+eval(parse(text = extract_r_code(result3)))
+```
+
+## Continue asking AI to statistical test for the response rate between the treatment groups
+
+```{r}
+question4 <- "Can you give me the R code to evaluate statistical differences for
+the response rates between treatment groups?"
+result4 <- chatgpt_query_with_history(question4, history = result1$history)
+cat("Assistant's answer:\n", result4$answer, "\n")
+eval(parse(text = extract_r_code(result4)))
+```
